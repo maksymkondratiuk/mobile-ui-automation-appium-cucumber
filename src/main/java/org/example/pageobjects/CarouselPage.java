@@ -12,14 +12,32 @@ import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class CarouselPage extends ScreenActions {
 
-    @AndroidFindBy(xpath = "//*[@text='Carousel']")
+    @AndroidFindBy(xpath = "//android.widget.TextView[@content-desc=\"carousel\"]")
     public WebElement carousel;
-    @AndroidFindBy(xpath = "//*[@text='Carousel - Swipe left/right']")
-    public WebElement carouselSwipe;
+    @AndroidFindBy(xpath = "//*[@text='Native View']")
+    public WebElement nativeView;
+    @AndroidFindBy(xpath = "//*[@text='Carousel']")
+    public WebElement carouselLocator;
     @AndroidFindBy(className = "android.widget.HorizontalScrollView")
     public WebElement scrollView;
     @AndroidFindBy(xpath = "//*[@text='3']")
-    public WebElement carouselElement;
+    public WebElement carouselElement3;
+    @AndroidFindBy(xpath = "//*[@text='1']")
+    public WebElement carouselElement1;
+
+    public CarouselPage scrollDown(){
+        swipeScrollView(0.6, 0.1, 0.5);
+        if(isElementDisplayed(nativeView)){
+            swipeScrollView(0.6, 0.1, 0.5);
+        }
+        else if(!isElementDisplayed(carousel)){
+            swipeScrollView(0.6, 0.1, 0.5);
+        }
+        else if(!isElementDisplayed(carouselLocator)){
+            swipeScrollView(0.6, 0.1, 0.5);
+        }
+        return this;
+    }
 
     public CarouselPage openCarousel() {
         carousel.click();
@@ -27,7 +45,7 @@ public class CarouselPage extends ScreenActions {
     }
 
     public boolean isCarouselPageDisplayed() {
-        return isElementDisplayed(carousel);
+        return isElementDisplayed(carouselElement1);
     }
 
     public CarouselPage swipeRightScroll() {
@@ -45,6 +63,6 @@ public class CarouselPage extends ScreenActions {
     }
 
     public String getLastBlockNumber() {
-        return getText(carouselElement, WaitStrategy.VISIBLE);
+        return getText(carouselElement3, WaitStrategy.VISIBLE);
     }
 }

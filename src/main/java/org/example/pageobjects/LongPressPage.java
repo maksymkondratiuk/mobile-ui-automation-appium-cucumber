@@ -19,6 +19,9 @@ public class LongPressPage extends ScreenActions {
     @AndroidFindBy(xpath = "//*[@text='Long Press Me']")
     public WebElement longPressMeButton;
 
+    @AndroidFindBy(id = "android:id/button1")
+    public WebElement okButton;
+
     public LongPressPage openLongPress() {
         longPress.click();
         return this;
@@ -31,6 +34,11 @@ public class LongPressPage extends ScreenActions {
     public LongPressPage longPressAction() {
         TouchAction action = new TouchAction((PerformsTouchActions) DriverManager.getDriver());
         action.longPress(ElementOption.element(longPressMeButton)).release().perform();
+        return this;
+    }
+
+    public LongPressPage clickOkButton() {
+        okButton.click();
         return this;
     }
 

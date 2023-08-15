@@ -12,6 +12,6 @@ public class VerticalSwipeSteps {
 
     @Then("User perform vertical swipe")
     public void userPerformVerticalSwipe() {
-        new VerticalSwipePage().swipeScrollView(0.5, 0.2);
+        new VerticalSwipePage().swipeOnThePage();
     }
 }

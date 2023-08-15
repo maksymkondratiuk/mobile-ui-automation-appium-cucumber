@@ -10,15 +10,20 @@ import org.openqa.selenium.WebElement;
 public class WheelPickerPage extends ScreenActions {
     @AndroidFindBy(xpath = "//*[@text='Wheel Picker']")
     public WebElement wheelPicker;
-    @AndroidFindBy(xpath = "//*[@text='Wheel Picker Demo']")
-    public WebElement wheelPickerDemo;
+
+    @AndroidFindBy(xpath = "//*[@text='red']")
+    public WebElement wheelPickerRed;
     @AndroidFindBy(className = "android.widget.Spinner")
     public WebElement spinner;
     @AndroidFindBy(xpath = "//android.widget.TextView[contains(@text,'Color: black')]")
     public WebElement currentColor;
 
+    public WheelPickerPage scrollDowntoTab(){
+        swipeScrollView(0.7, 0.2, 0.5);
+        return this;
+    }
     public boolean isWheelPickerPageDisplayed() {
-        return isElementDisplayed(wheelPicker);
+        return isElementDisplayed(wheelPickerRed);
     }
 
     public WheelPickerPage openWheelPicker(){

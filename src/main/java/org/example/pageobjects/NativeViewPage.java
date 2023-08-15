@@ -19,16 +19,13 @@ public class NativeViewPage extends ScreenActions {
     @AndroidFindBy(xpath = "//*[@text='Native View']")
     public WebElement nativeView;
 
-    @AndroidFindBy(xpath = "//*[@text='Native View Demo']")
-    public WebElement nativePage;
-
     public NativeViewPage openNativeView() {
         nativeView.click();
         return this;
     }
 
     public boolean isNativeViewPageDisplayed() {
-        return isElementDisplayed(nativePage);
+        return isElementDisplayed(itemViewOne);
     }
 
     public String getView1() {

@@ -15,5 +15,6 @@ public class DoubleTapSteps {
     public void userPerformDoubleTap() {
         new DoubleTapPage().doubleTapAction();
         Assert.assertEquals("Double tap successful!", new DoubleTapPage().getSuccessMessage().trim());
+        new DoubleTapPage().clickOkButton();
     }
 }

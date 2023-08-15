@@ -46,6 +46,7 @@ Feature: Sample List page tests
   @Carousel
   Scenario: Carousel swipe
     When User Login with username: "admin" and password: "admin" and press Login
+    Then User scrolling to the Carousel Page
     And User should be in the Carousel Page
     Then User perform Carousel swipe
     And Back to Login Page
@@ -53,6 +54,7 @@ Feature: Sample List page tests
   @WheelPicker
   Scenario: WheelPicker actions
     When User Login with username: "admin" and password: "admin" and press Login
+    Then User scrolling to the WheelPicker Page
     And User should be in the WheelPicker Page
     Then User perform WheelPicker color change
     And Back to Login Page

@@ -1,16 +1,14 @@
 package org.example.pageobjects;
 
-import io.appium.java_client.PerformsTouchActions;
-import io.appium.java_client.TouchAction;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import org.example.driver.manager.DriverManager;
 import org.example.pageobjects.screen.ScreenActions;
 import org.openqa.selenium.WebElement;
 
-import static io.appium.java_client.touch.offset.PointOption.point;
+import java.util.concurrent.TimeUnit;
 
 public class VerticalSwipePage extends ScreenActions {
-    @AndroidFindBy(id = "listview")
+    @AndroidFindBy(xpath = "//android.widget.ScrollView[@content-desc=\"listview\"]/android.view.ViewGroup")
     public WebElement listView;
     @AndroidFindBy(xpath = "//*[@text='Vertical swiping']")
     public WebElement swipe;
@@ -21,17 +19,12 @@ public class VerticalSwipePage extends ScreenActions {
     }
 
     public boolean isVerticalSwipePageDisplayed() {
-        return isElementDisplayed(swipe);
+        DriverManager.getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        return isElementDisplayed(listView);
     }
 
-    public VerticalSwipePage swipeScrollView(double indexStart, double indexY) {
-        int height = listView.getSize().getHeight();
-        int width = listView.getSize().getWidth();
-        int startX = width/2;
-        int startY = (int) (height * indexStart);
-        int endY = (int) (height * indexY);
-        TouchAction action = new TouchAction((PerformsTouchActions) DriverManager.getDriver());
-        action.press(point(startX,startY)).moveTo(point(startX, endY)).release().perform();
+    public VerticalSwipePage swipeOnThePage(){
+        swipeScrollView(0.8, 0.2, 0.5);
         return this;
     }
 }

@@ -1,23 +1,24 @@
 package org.example.pageobjects.screen;
 
-import com.google.common.collect.Ordering;
 import io.appium.java_client.AppiumBy;
+import io.appium.java_client.PerformsTouchActions;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.example.driver.manager.DriverManager;
 import org.example.enums.MobileFindBy;
 import org.example.enums.WaitStrategy;
 import org.example.factories.WaitFactory;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
+import static io.appium.java_client.touch.offset.PointOption.point;
+import static java.time.Duration.ofMillis;
 import static org.example.enums.MobileFindBy.*;
 
 public class ScreenActions {
@@ -52,12 +53,16 @@ public class ScreenActions {
     return mobileFindByFunctionMap.get(mobileFindBy).apply(mobileElement);
   }
 
-  protected void waitForPageLoad(int waitTime) {
-    DriverManager.getDriver().manage().timeouts().pageLoadTimeout(waitTime, TimeUnit.SECONDS);
-  }
-
-  protected String getTextFromAttribute(WaitStrategy waitStrategy, WebElement element) {
-    return WaitFactory.explicitlyWaitForElement(waitStrategy, element).getAttribute("text");
+  public void swipeScrollView(double startPercentage, double endPercentage, double anchorPercentage) {
+    Dimension size = DriverManager.getDriver().manage().window().getSize();
+    int anchor = (int) (size.width * anchorPercentage);
+    int startPoint = (int) (size.height * startPercentage);
+    int endPoint = (int) (size.height * endPercentage);
+    new TouchAction((PerformsTouchActions) DriverManager.getDriver())
+            .press(point(anchor, startPoint))
+            .waitAction(waitOptions(ofMillis(1000)))
+            .moveTo(point(anchor, endPoint))
+            .release().perform();
   }
 
   protected String getText(WebElement element, WaitStrategy waitStrategy) {
@@ -72,31 +77,6 @@ public class ScreenActions {
     element.clear();
   }
 
-  protected void getServerStatus() {
-    DriverManager.getDriver().getStatus();
-  }
-
-  protected String getElementAttribute(WebElement element, String attributeName) {
-    return element.getAttribute(attributeName);
-  }
-
-  protected WebElement getActiveElement() {
-    return DriverManager.getDriver().switchTo().activeElement();
-  }
-
-  protected void moveMouseToElement(WebElement element, int x_offset, int y_offset) {
-    new Actions(DriverManager.getDriver())
-      .moveToElement(element, x_offset, y_offset)
-      .perform();
-  }
-
-  protected void doubleClickOnElement(WebElement element) {
-    new Actions(DriverManager.getDriver())
-      .moveToElement(element)
-      .doubleClick()
-      .perform();
-  }
-
   protected void click(WebElement element) {
     element.click();
   }
@@ -109,42 +89,5 @@ public class ScreenActions {
     WaitFactory.explicitlyWaitForElement(WaitStrategy.VISIBLE, element);
     doClear(element);
     element.sendKeys(value);
-  }
-
-  /**
-   * Accept Alert
-   */
-  protected void acceptAlert() {
-    DriverManager.getDriver().executeScript("mobile:acceptAlert");
-  }
-
-  /**
-   * Dismiss Alert
-   */
-  protected void dismissAlert() {
-    DriverManager.getDriver().executeScript("mobile:dismissAlert");
-  }
-
-  /**
-   * Scroll to specific location
-   *
-   * @param element element
-   * @param value   location
-   */
-  protected void scrollToLocation(WebElement element, int value) {
-    HashMap<String, Double> scrollElement = new HashMap<>();
-    scrollElement.put("startX", 0.50);
-    scrollElement.put("startY", 0.95);
-    scrollElement.put("endX", 0.50);
-    scrollElement.put("endY", 0.01);
-    scrollElement.put("duration", 3.0);
-    DriverManager.getDriver().executeScript("mobile: swipe", scrollElement);
-  }
-
-  protected boolean checkListIsSorted(List<String> listToSort) {
-    if (!listToSort.isEmpty()) {
-      return Ordering.natural().isOrdered(listToSort);
-    }
-    return false;
   }
 }

@@ -15,5 +15,6 @@ public class LongPressSteps {
     public void userPerformLongPress() {
         new LongPressPage().longPressAction();
         Assert.assertEquals("you pressed me hard :P", new LongPressPage().getSuccessMessage().trim());
+        new LongPressPage().clickOkButton();
     }
 }

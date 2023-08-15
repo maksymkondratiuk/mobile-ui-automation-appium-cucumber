@@ -7,8 +7,14 @@ import org.junit.Assert;
 
 public class WheelPickerSteps extends ScreenActions {
 
+    @Then("User scrolling to the WheelPicker Page")
+    public void userScrollingToWheelPickerPage() {
+        new WheelPickerPage().scrollDowntoTab();
+    }
+
     @Then("User should be in the WheelPicker Page")
     public void userShouldBeOnWheelPickerPage() {
+        new WheelPickerPage().scrollDowntoTab();
         Assert.assertTrue(new WheelPickerPage().openWheelPicker().isWheelPickerPageDisplayed());
     }
 

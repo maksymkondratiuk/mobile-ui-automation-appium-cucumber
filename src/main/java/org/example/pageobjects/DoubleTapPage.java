@@ -20,6 +20,9 @@ public class DoubleTapPage extends ScreenActions {
     @AndroidFindBy(xpath = "//*[@text='Double Tap Me']")
     public WebElement doubleTapMeButton;
 
+    @AndroidFindBy(id = "android:id/button1")
+    public WebElement okButton;
+
     public boolean isDoubleTapPageDisplayed() {
         return isElementDisplayed(doubleTapDemo);
     }
@@ -33,6 +36,12 @@ public class DoubleTapPage extends ScreenActions {
         TouchAction action = new TouchAction((PerformsTouchActions) DriverManager.getDriver());
         action.tap(TapOptions.tapOptions().withElement(ElementOption.element(doubleTapMeButton))
                 .withTapsCount(2)).perform();
+
+        return this;
+    }
+
+    public DoubleTapPage clickOkButton() {
+        okButton.click();
         return this;
     }
 

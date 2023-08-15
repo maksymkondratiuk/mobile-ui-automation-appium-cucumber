@@ -9,6 +9,8 @@ import org.example.enums.WaitStrategy;
 import org.example.pageobjects.screen.ScreenActions;
 import org.openqa.selenium.WebElement;
 
+import java.util.concurrent.TimeUnit;
+
 public class DragAndDropPage extends ScreenActions {
     @AndroidFindBy(accessibility = "success")
     public WebElement message;
@@ -25,7 +27,8 @@ public class DragAndDropPage extends ScreenActions {
     }
 
     public boolean isDragAndDropPageDisplayed() {
-        return isElementDisplayed(dragDrop);
+        DriverManager.getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        return isElementDisplayed(dragMeButton);
     }
 
     public DragAndDropPage dragDropAction() {

@@ -5,6 +5,12 @@ import org.example.pageobjects.CarouselPage;
 import org.junit.Assert;
 
 public class CarouselSteps {
+
+    @Then("User scrolling to the Carousel Page")
+    public void userScrollingCarouselPage() {
+        new CarouselPage().scrollDown();
+    }
+
     @Then("User should be in the Carousel Page")
     public void userShouldBeOnCarouselPage() {
         Assert.assertTrue(new CarouselPage().openCarousel().isCarouselPageDisplayed());

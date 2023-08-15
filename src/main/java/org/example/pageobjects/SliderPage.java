@@ -7,6 +7,8 @@ import org.example.driver.manager.DriverManager;
 import org.example.pageobjects.screen.ScreenActions;
 import org.openqa.selenium.WebElement;
 
+import java.util.concurrent.TimeUnit;
+
 import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class SliderPage extends ScreenActions {
@@ -21,7 +23,8 @@ public class SliderPage extends ScreenActions {
     }
 
     public boolean isSliderPageDisplayed() {
-        return isElementDisplayed(textSlider);
+        DriverManager.getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        return isElementDisplayed(slider);
     }
 
 
